@@ -120,5 +120,19 @@ const headerHtml = `
           </nav>
         </div>
 `;
+// --- GitHub Pages用: 先頭スラッシュのリンクを補正 ---
+document.addEventListener('DOMContentLoaded', () => {
+  const isGhPages = location.hostname.endsWith('github.io');
+  const REPO_BASE = '/misora-connect-staging'; // ← あなたのリポジトリ名
+
+  if (!isGhPages) return; // 本番ドメインでは何もしない
+
+  document.querySelectorAll('a[href^="/"]').forEach(a => {
+    const href = a.getAttribute('href');   // 例: "/company/"
+    if (!href.startsWith(REPO_BASE + '/')) {
+      a.setAttribute('href', REPO_BASE + href); // "/misora-connect-staging/company/"
+    }
+  });
+});
 
 document.querySelector("#header").insertAdjacentHTML("beforeend", headerHtml);
