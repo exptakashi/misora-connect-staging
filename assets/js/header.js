@@ -121,23 +121,4 @@ const headerHtml = `
         </div>
 `;
 
-document.addEventListener('DOMContentLoaded', () => {
-  // ① ヘッダーを差し込む
-  const headerEl = document.querySelector("#header");
-  if (headerEl) {
-    headerEl.insertAdjacentHTML("beforeend", headerHtml);
-  }
-
-  // ② GitHub Pages用のリンク補正
-  const isGhPages = location.hostname.endsWith('github.io');
-  const REPO_BASE = '/misora-connect-staging'; // ← リポジトリ名
-
-  if (isGhPages) {
-    document.querySelectorAll('a[href^="/"]').forEach(a => {
-      const href = a.getAttribute('href');
-      if (!href.startsWith(REPO_BASE + '/')) {
-        a.setAttribute('href', REPO_BASE + href);
-      }
-    });
-  }
-});
+document.querySelector("#header").insertAdjacentHTML("beforeend", headerHtml);
