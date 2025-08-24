@@ -1,205 +1,70 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ドキュメント | 株式会社ミソラコネクト</title>
-    <style>
-      :root{
-        --accent:#43C6FA;       /* Misora Connectの水色 */
-        --ink:#0f172a;          /* 文字色 濃いめ */
-        --muted:#475569;        /* 補助文字 */
-        --line:#e5eaf0;         /* 罫線 */
-        --bg:#ffffff;           /* ページ背景 */
-        --pane:#f7fafc;         /* サイドパネル背景(ごく薄い) */
-        --chip:#edf6ff;         /* カードの淡い背景 */
-        --code:#f5f7fa;         /* コード背景 */
-      }
-
-      /* layout */
-      html,body{height:100%}
-      body{
-        margin:0;
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans JP",Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
-        color:var(--ink);
-        background:var(--bg);
-        display:flex;
-        min-height:100vh;
-      }
-
-      /* sidebar */
-      .sidebar{
-        width:280px;
-        background:var(--pane);
-        border-right:1px solid var(--line);
-        padding:20px 18px 28px;
-        box-sizing:border-box;
-        position:sticky;
-        top:0;
-        height:100vh;
-        overflow:auto;
-      }
-      .brand{
-        display:flex; align-items:center; gap:10px; margin-bottom:18px;
-      }
-      .brand img{height:20px}
-      .brand .text{font-weight:700; letter-spacing:.2px}
-      .search{
-        display:flex; gap:8px; align-items:center;
-        background:#fff; border:1px solid var(--line);
-        padding:8px 10px; border-radius:10px; margin-bottom:14px;
-      }
-      .search input{
-        border:none; outline:none; width:100%; font-size:14px; color:var(--ink);
-      }
-      .nav-block{margin:14px 0 10px}
-      .nav-title{
-        font-size:12px; font-weight:700; color:var(--muted);
-        text-transform:uppercase; letter-spacing:.06em;
-        margin:14px 8px 6px;
-      }
-      .nav-list{list-style:none; padding:0; margin:0}
-      .nav-list li{margin:2px 0}
-      .nav-list a{
-        display:block; padding:8px 10px; border-radius:8px;
-        text-decoration:none; color:var(--ink); font-size:14px;
-      }
-      .nav-list a:hover{background:var(--chip); color:#0b5f82}
-
-      /* content */
-      .content{
-        flex:1; padding:40px 48px; max-width:1080px; width:100%;
-      }
-      .page-title{margin:0 0 6px; font-size:28px}
-      .page-lead{margin:0 0 22px; color:var(--muted)}
-      .card-grid{
-        display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-        gap:16px; margin:22px 0 32px;
-      }
-      .card{
-        background:#fff; border:1px solid var(--line); border-radius:14px;
-        padding:16px; transition:box-shadow .15s, transform .02s;
-      }
-      .card:hover{box-shadow:0 4px 14px rgba(15,23,42,.07)}
-      .card h3{margin:0 0 6px; font-size:16px}
-      .card p{margin:0; color:var(--muted); font-size:14px}
-
-      h2{margin:26px 0 10px; font-size:20px}
-      p{line-height:1.8}
-
-      .note{
-        border-left:4px solid var(--accent);
-        background:var(--chip);
-        padding:12px 14px; border-radius:8px; margin:14px 0;
-      }
-
-      pre{
-        background:var(--code); padding:14px 16px; border-radius:10px;
-        border:1px solid var(--line); overflow:auto; font-size:13px;
-      }
-      code,pre{font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
-
-      /* links */
-      a{color:#0a74a1}
-      a.link-btn{
-        display:inline-flex; align-items:center; gap:8px;
-        background:var(--accent); color:#fff; text-decoration:none;
-        padding:10px 14px; border-radius:10px; font-weight:600;
-      }
-      a.link-btn:hover{filter:brightness(0.98)}
-      .pill{
-        display:inline-block; background:var(--chip); color:#0b5f82;
-        border:1px solid #d7ecff; font-size:12px; padding:3px 8px; border-radius:999px;
-      }
-
-      /* responsive */
-      @media (max-width: 960px){
-        .sidebar{display:none}
-        .content{padding:28px 20px}
-      }
-    </style>
-  </head>
-  <body>
-    <!-- 左：サイドバー -->
-    <aside class="sidebar">
-      <div class="brand">
-        <img src="../assets/img/logo.svg" alt="" onerror="this.style.display='none'">
-        <span class="text">Misora Connect Docs</span>
-      </div>
-
-      <div class="search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <circle cx="11" cy="11" r="7" stroke="#94a3b8" stroke-width="2"/>
-          <path d="M20 20L17 17" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <input type="search" placeholder="キーワードで検索…" />
-      </div>
-
-      <div class="nav-block">
-        <div class="nav-title">ガイド</div>
-        <ul class="nav-list">
-          <li><a href="#">はじめに</a></li>
-          <li><a href="#">はじめての方へ</a></li>
-          <li><a href="#">よくある質問</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-block">
-        <div class="nav-title">サービスの使い方</div>
-        <ul class="nav-list">
-          <li><a href="#">API 利用ガイド</a></li>
-          <li><a href="#">管理コンソールの使い方</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-block">
-        <div class="nav-title">設計とベストプラクティス</div>
-        <ul class="nav-list">
-          <li><a href="#">ネットワーク設計</a></li>
-          <li><a href="#">セキュリティ</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-block">
-        <div class="nav-title">リファレンス</div>
-        <ul class="nav-list">
-          <li><a href="#">レート制限</a></li>
-          <li><a href="#">エラーコード</a></li>
-        </ul>
-      </div>
-    </aside>
-
-    <!-- 右：メイン -->
-    <main class="content">
-      <h1 class="page-title">ドキュメント</h1>
-      <p class="page-lead">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>ドキュメント | 株式会社ミソラコネクト</title>
+        <style>:root { --accent: #43C6FA;  /* Misora Connectの水色 */ --ink: #0f172a;  /* 文字色 濃いめ */ --muted: #475569;  /* 補助文字 */ --line: #e5eaf0;  /* 罫線 */ --bg: #ffffff;  /* ページ背景 */ --pane: #f7fafc;  /* サイドパネル背景(ごく薄い) */ --chip: #edf6ff;  /* カードの淡い背景 */ --code: #f5f7fa;  /* コード背景 */ } /* layout */html, body { height: 100%; } body { margin: 0; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans JP",Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"; color: var(--ink); background: var(--bg); display: flex; min-height: 100vh; } /* sidebar */.sidebar { width: 280px; background: var(--pane); border-right: 1px solid var(--line); padding: 20px 18px 28px; box-sizing: border-box; position: sticky; top: 0; height: 100vh; overflow: auto; } .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; } .brand img { height: 20px; } .brand .text { font-weight: 700; letter-spacing: .2px; } .search { display: flex; gap: 8px; align-items: center; background: #fff; border: 1px solid var(--line); padding: 8px 10px; border-radius: 10px; margin-bottom: 14px; } .search input { border: none; outline: none; width: 100%; font-size: 14px; color: var(--ink); } .nav-block { margin: 14px 0 10px; } .nav-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 14px 8px 6px; } .nav-list { list-style: none; padding: 0; margin: 0; } .nav-list li { margin: 2px 0; } .nav-list a { display: block; padding: 8px 10px; border-radius: 8px; text-decoration: none; color: var(--ink); font-size: 14px; } .nav-list a:hover { background: var(--chip); color: #0b5f82; } /* content */.content { flex: 1; padding: 40px 48px; max-width: 1080px; width: 100%; } .page-title { margin: 0 0 6px; font-size: 28px; } .page-lead { margin: 0 0 22px; color: var(--muted); } .card-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 16px; margin: 22px 0 32px; } .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px; transition: box-shadow .15s, transform .02s; } .card:hover { box-shadow: 0 4px 14px rgba(15,23,42,.07); } .card h3 { margin: 0 0 6px; font-size: 16px; } .card p { margin: 0; color: var(--muted); font-size: 14px; } h2 { margin: 26px 0 10px; font-size: 20px; } p { line-height: 1.8; } .note { border-left: 4px solid var(--accent); background: var(--chip); padding: 12px 14px; border-radius: 8px; margin: 14px 0; } pre { background: var(--code); padding: 14px 16px; border-radius: 10px; border: 1px solid var(--line); overflow: auto; font-size: 13px; } code, pre { font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; } /* links */a { color: #0a74a1; } a.link-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 10px; font-weight: 600; } a.link-btn:hover { filter: brightness(0.98); } .pill { display: inline-block; background: var(--chip); color: #0b5f82; border: 1px solid #d7ecff; font-size: 12px; padding: 3px 8px; border-radius: 999px; } /* responsive */@media (max-width: 960px){ .sidebar {  display: none; }  .content {  padding: 28px 20px; } }</style>
+    </head>
+    <body>
+        <!-- 左：サイドバー -->
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="../assets/img/logo.svg" alt="" onerror="this.style.display='none'"><span class="text">Misora Connect Docs</span>
+            </div>
+            <div class="search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <circle cx="11" cy="11" r="7" stroke="#94a3b8" stroke-width="2"/>
+                    <path d="M20 20L17 17" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input type="search" placeholder="キーワードで検索…"/>
+            </div>
+            <div class="nav-block">
+                <div class="nav-title">ガイド</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#">はじめに</a>
+                    </li>
+                    <li>
+                        <a href="#">はじめての方へ</a>
+                    </li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="nav-block">
+                <ul class="nav-list">
+                    <li>
+                        <a href="#">API 利用ガイド</a>
+                    </li>
+                    <li>
+                        <a href="#">My Pageの使い方</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-block">
+                <div class="nav-title">設計とベストプラクティス</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#">ネットワーク設計</a>
+                    </li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="nav-block">
+                <ul class="nav-list">
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </aside>
+        <!-- 右：メイン -->
+        <main class="content">
+            <h1 class="page-title">ドキュメント</h1>
+            <p class="page-lead">
         ミソラコネクトのご利用に関するガイド／ベストプラクティス／FAQを掲載しています。
-        目的に合わせて以下のカードからお進みください。
-      </p>
-
-      <div class="card-grid">
-        <a class="card" href="./getting-started.html">
-          <h3>はじめての方へ <span class="pill">スターター</span></h3>
-          <p>セットアップ手順や最小構成の例を解説します。</p>
-        </a>
-        <a class="card" href="./api-guide.html">
-          <h3>API 利用ガイド</h3>
-          <p>認証、エンドポイント、サンプルコード、ベストプラクティス。</p>
-        </a>
-        <a class="card" href="./faq.html">
-          <h3>よくある質問</h3>
-          <p>トラブル時のチェックリスト／問い合わせ前の確認事項。</p>
-        </a>
-      </div>
-
-      <h2>このドキュメントの構成</h2>
-      <div class="note">
-        「はじめに」→「使い方」→「設計」→「リファレンス」の順で読むと、導入から運用までの流れが掴みやすくなります。
-      </div>
-
-      <h2>クイックサンプル</h2>
-      <pre><code>curl -H "Authorization: Bearer &lt;YOUR_TOKEN&gt;" \
-https://api.example.com/v1/resources</code></pre>
-    </main>
-  </body>
+        目的に合わせて以下のカードからお進みください。 </p>
+            <div class="card-grid"><a class="card" href="./getting-started.html"> <h3>はじめての方へ <span class="pill">スターター</span></h3> <p>セットアップ手順や最小構成の例を解説します。</p> </a><a class="card" href="./api-guide.html"> <h3>API 利用ガイド</h3> <p>認証、エンドポイント、サンプルコード、ベストプラクティス。</p> </a><a class="card" href="./faq.html"> <h3>よくある質問</h3> <p>トラブル時のチェックリスト／問い合わせ前の確認事項。</p> </a>
+            </div>
+        </main>
+    </body>
 </html>
