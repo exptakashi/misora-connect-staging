@@ -71,4 +71,12 @@ const footerHtml = `
   <div class="scroll-top">
     <a href="#">
       <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="21" cy="21" r="20.5" stroke="white"
+        <circle cx="21" cy="21" r="20.5" stroke="white" class="scroll-top-circle" />
+        <path d="M26 21C24.0474 19.0474 22.9526 17.9526 21 16L16 21" stroke="white" stroke-linecap="round" stroke-linejoin="round" class="scroll-top-arrow" />
+        <path d="M21 17V26" stroke="white" stroke-linecap="round" class="scroll-top-arrow2" />
+      </svg>
+    </a>
+  </div>
+`;
+
+document.querySelector("#footer").insertAdjacentHTML("beforeend", footerHtml);
