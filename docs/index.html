@@ -2,349 +2,134 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ドキュメント | 株式会社ミソラコネクト</title>
-    <link rel="icon" href="../assets/img/favicon.ico" />
-    <!-- 既存のサイト共通CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css" crossorigin />
-
-    <!-- このページ専用の最小スタイル（必要なら後で assets/docs.css に分離してOK） -->
+    <link rel="stylesheet" href="../assets/css/style.css" />
     <style>
-      :root {
-        --docs-bg: #0f1720;       /* 背景（既存のフッター色に寄せ気味） */
-        --docs-surface: #1b2430;  /* サイドバー/TOC 背面 */
-        --docs-text: #e6edf3;     /* 文字色 */
-        --docs-subtext: #9fb0c0;
-        --docs-accent: #43C6FA;   /* 既存の水色アクセント */
-        --docs-border: #2b3745;
-      }
-      body.docs {
-        background: var(--docs-bg);
-        color: var(--docs-text);
-      }
-
-      /* コンテナ */
-      .docs-wrap {
-        max-width: 1200px;
-        margin: 48px auto 80px;
-        padding: 0 16px;
-        display: grid;
-        grid-template-columns: 260px 1fr 260px;
-        gap: 24px;
-      }
-      /* モバイルでは1カラム */
-      @media (max-width: 1024px) {
-        .docs-wrap {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* サイドバー */
-      .docs-sidebar {
-        background: var(--docs-surface);
-        border: 1px solid var(--docs-border);
-        border-radius: 12px;
-        padding: 16px;
-        position: sticky;
-        top: 16px;
-        height: max-content;
-      }
-      .docs-brand {
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background-color: #0f172a;
+        color: #f8fafc;
         display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 700;
-        margin-bottom: 12px;
       }
-      .docs-search {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid var(--docs-border);
-        border-radius: 8px;
-        background: #0f1620;
-        color: var(--docs-text);
-        outline: none;
+      .sidebar {
+        width: 250px;
+        background: #1e293b;
+        padding: 20px;
+        height: 100vh;
+        overflow-y: auto;
       }
-      .docs-nav {
-        margin-top: 14px;
+      .sidebar h2 {
+        font-size: 14px;
+        margin-top: 20px;
+        color: #94a3b8;
       }
-      .docs-nav h4 {
-        margin: 18px 0 8px;
-        font-size: 12px;
-        color: var(--docs-subtext);
-        letter-spacing: .06em;
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
       }
-      .docs-nav a {
-        display: block;
-        padding: 8px 10px;
-        border-radius: 8px;
-        color: var(--docs-text);
-        text-decoration: none;
-        line-height: 1.4;
+      .sidebar li {
+        margin: 8px 0;
       }
-      .docs-nav a:hover,
-      .docs-nav a.active {
-        background: rgba(67,198,250,.1);
-        color: #fff;
-      }
-
-      /* 本文 */
-      .docs-main {
-        background: #0f1620;
-        border: 1px solid var(--docs-border);
-        border-radius: 12px;
-        padding: 24px 24px 40px;
-      }
-      .docs-main h1 {
-        font-size: 28px;
-        margin: 4px 0 16px;
-      }
-      .docs-main p {
-        color: var(--docs-text);
-        line-height: 1.9;
-      }
-      .docs-main h2 {
-        margin: 32px 0 8px;
-        font-size: 22px;
-        border-left: 3px solid var(--docs-accent);
-        padding-left: 10px;
-      }
-      .docs-main h3 {
-        margin: 22px 0 8px;
-        font-size: 18px;
-        color: #fff;
-      }
-      .docs-main pre {
-        background: #0b1220;
-        border: 1px solid var(--docs-border);
-        padding: 14px;
-        border-radius: 8px;
-        overflow: auto;
-      }
-      .docs-main code {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      }
-      .docs-links {
-        margin-top: 28px;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 12px;
-      }
-      .docs-card {
-        background: #101827;
-        border: 1px solid var(--docs-border);
-        border-radius: 10px;
-        padding: 14px 16px;
-        text-decoration: none;
-        color: var(--docs-text);
-      }
-      .docs-card:hover { border-color: var(--docs-accent); }
-
-      /* 右TOC */
-      .docs-toc {
-        background: var(--docs-surface);
-        border: 1px solid var(--docs-border);
-        border-radius: 12px;
-        padding: 16px;
-        position: sticky;
-        top: 16px;
-        height: max-content;
-      }
-      .docs-toc h4 {
-        margin: 6px 0 10px;
-        font-size: 12px;
-        color: var(--docs-subtext);
-        letter-spacing: .06em;
-      }
-      .docs-toc a {
-        display: block;
-        padding: 6px 6px;
-        border-radius: 6px;
-        color: var(--docs-text);
+      .sidebar a {
+        color: #e2e8f0;
         text-decoration: none;
         font-size: 14px;
       }
-      .docs-toc a:hover,
-      .docs-toc a.active {
-        background: rgba(67,198,250,.1);
+      .sidebar a:hover {
+        text-decoration: underline;
       }
-      .docs-toc .toc-h3 { padding-left: 14px; font-size: 13px; color: var(--docs-subtext); }
-
-      /* モバイル用サイドバー切替 */
-      .docs-mobile-controls {
-        display: none;
-        gap: 8px;
-        margin: 0 auto 12px;
-        max-width: 1200px;
-        padding: 0 16px;
+      .content {
+        flex: 1;
+        padding: 40px;
       }
-      .btn {
-        border: 1px solid var(--docs-border);
+      .card-list {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+      .card {
+        background: #1e293b;
+        padding: 20px;
         border-radius: 8px;
-        padding: 8px 12px;
-        background: var(--docs-surface);
-        color: var(--docs-text);
+        width: 220px;
       }
-      @media (max-width: 1024px) {
-        .docs-mobile-controls { display: flex; }
-        .docs-sidebar, .docs-toc { display: none; }
-        .docs-sidebar.open { display: block; }
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+      .card p {
+        font-size: 14px;
+        color: #cbd5e1;
+      }
+      pre {
+        background: #1e293b;
+        padding: 16px;
+        border-radius: 6px;
+        overflow-x: auto;
       }
     </style>
   </head>
-  <body class="docs">
-    <div id="container">
-      <header class="header" id="header"></header>
+  <body>
+    <!-- サイドバー -->
+    <nav class="sidebar">
+      <h2>ガイド</h2>
+      <ul>
+        <li><a href="#">はじめに</a></li>
+        <li><a href="#">はじめての方へ</a></li>
+        <li><a href="#">よくある質問</a></li>
+      </ul>
+      <h2>サービスの使い方</h2>
+      <ul>
+        <li><a href="#">API 利用ガイド</a></li>
+        <li><a href="#">管理コンソールの使い方</a></li>
+      </ul>
+      <h2>設計とベストプラクティス</h2>
+      <ul>
+        <li><a href="#">ネットワーク設計</a></li>
+        <li><a href="#">セキュリティ</a></li>
+      </ul>
+      <h2>リファレンス</h2>
+      <ul>
+        <li><a href="#">レート制限</a></li>
+        <li><a href="#">エラーコード</a></li>
+      </ul>
+    </nav>
 
-      <!-- モバイル用コントロール -->
-      <div class="docs-mobile-controls">
-        <button id="toggleSidebar" class="btn">メニュー</button>
+    <!-- メインコンテンツ -->
+    <main class="content">
+      <h1>ドキュメント</h1>
+      <p>
+        このサイトでは、ミソラコネクトのご利用に関するガイド・リファレンス・FAQを提供します。
+      </p>
+
+      <div class="card-list">
+        <div class="card">
+          <h3>はじめての方へ</h3>
+          <p>セットアップ手順や最小構成の例を解説。</p>
+        </div>
+        <div class="card">
+          <h3>API 利用ガイド</h3>
+          <p>認証、エンドポイント、サンプルコード。</p>
+        </div>
+        <div class="card">
+          <h3>よくある質問</h3>
+          <p>困ったときのチェックリスト。</p>
+        </div>
       </div>
 
-      <div class="docs-wrap">
-        <!-- 左：サイドバー -->
-        <aside class="docs-sidebar" id="docsSidebar">
-          <div class="docs-brand">📘 Misora Connect Docs</div>
-          <input class="docs-search" id="docsSearch" placeholder="検索（フィルタ）" />
+      <h2>このドキュメントの構成</h2>
+      <p>
+        大きく「はじめに」「使い方」「設計」「リファレンス」で構成されています。順に読み進めれば、導入から運用までの全体像が把握できるようになっています。
+      </p>
 
-          <nav class="docs-nav" id="docsNav">
-            <h4>はじめに</h4>
-            <a href="./getting-started.html">はじめての方へ</a>
-            <a href="./faq.html">よくある質問</a>
-
-            <h4>サービスの使い方</h4>
-            <a href="./api-guide.html">API 利用ガイド</a>
-            <a href="./console-guide.html">管理コンソールの使い方</a>
-
-            <h4>設計とベストプラクティス</h4>
-            <a href="./network-design.html">ネットワーク設計</a>
-            <a href="./security.html">セキュリティ</a>
-
-            <h4>リファレンス</h4>
-            <a href="./rate-limits.html">レート制限</a>
-            <a href="./errors.html">エラーコード</a>
-          </nav>
-        </aside>
-
-        <!-- 中央：本文 -->
-        <main class="docs-main" id="main">
-          <h1>ドキュメント</h1>
-          <p>このサイトでは、ミソラコネクトのご利用に関するガイド・リファレンス・FAQ を提供します。左のメニューから目的の項目を選ぶか、下のカードから主要ページへどうぞ。</p>
-
-          <div class="docs-links">
-            <a class="docs-card" href="./getting-started.html">
-              <strong>はじめての方へ</strong><br />
-              セットアップ手順や最小構成の例を解説。
-            </a>
-            <a class="docs-card" href="./api-guide.html">
-              <strong>API 利用ガイド</strong><br />
-              認証、エンドポイント、サンプルコード。
-            </a>
-            <a class="docs-card" href="./faq.html">
-              <strong>よくある質問</strong><br />
-              困ったときのチェックリスト。
-            </a>
-          </div>
-
-          <h2 id="docs-structure">このドキュメントの構成</h2>
-          <p>大きく「はじめに」「使い方」「設計」「リファレンス」で構成されています。順に読み進めれば、導入から運用までの全体像が掴めるようになっています。</p>
-
-          <h3 id="how-to-contribute">間違いの報告や改善提案</h3>
-          <p>誤記や不明点があれば、お問い合わせフォームからフィードバックをお送りください。</p>
-
-          <h2 id="quick-sample">クイックサンプル</h2>
-          <p>API の基本的な呼び出し例です。</p>
-<pre><code>curl -H "Authorization: Bearer &lt;YOUR_TOKEN&gt;" \
-  https://api.example.com/v1/resources</code></pre>
-        </main>
-
-        <!-- 右：目次 -->
-        <aside class="docs-toc">
-          <h4>このページの目次</h4>
-          <nav id="toc"></nav>
-        </aside>
-      </div>
-
-      <footer class="footer" id="footer"></footer>
-    </div>
-
-    <!-- 既存のヘッダー/フッター挿入スクリプト -->
-    <script src="../assets/js/header.js" defer></script>
-    <script src="../assets/js/footer.js" defer></script>
-
-    <!-- このページ専用JS（TOC生成・検索・モバイル切替） -->
-    <script>
-      // 目次生成（h2/h3 を拾う）
-      function buildTOC() {
-        const toc = document.getElementById('toc');
-        const headings = document.querySelectorAll('.docs-main h2, .docs-main h3');
-        toc.innerHTML = '';
-        headings.forEach(h => {
-          if (!h.id) {
-            h.id = h.textContent.trim().toLowerCase().replace(/\\s+/g, '-');
-          }
-          const a = document.createElement('a');
-          a.href = '#' + h.id;
-          a.textContent = h.textContent;
-          if (h.tagName === 'H3') a.classList.add('toc-h3');
-          toc.appendChild(a);
-        });
-
-        // スクロールに合わせてハイライト
-        const links = Array.from(toc.querySelectorAll('a'));
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            const id = entry.target.id;
-            const link = links.find(a => a.getAttribute('href') === '#' + id);
-            if (link) {
-              if (entry.isIntersecting) {
-                links.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-              }
-            }
-          });
-        }, { rootMargin: '0px 0px -70% 0px', threshold: 0.1 });
-
-        headings.forEach(h => obs.observe(h));
-      }
-
-      // サイドバーの簡易検索（リンクテキストをフィルタ）
-      function setupSidebarSearch() {
-        const input = document.getElementById('docsSearch');
-        const links = Array.from(document.querySelectorAll('#docsNav a'));
-        input.addEventListener('input', () => {
-          const q = input.value.trim().toLowerCase();
-          links.forEach(a => {
-            const hit = a.textContent.toLowerCase().includes(q);
-            a.style.display = hit ? '' : 'none';
-          });
-        });
-      }
-
-      // モバイル：サイドバー開閉
-      function setupMobileToggle() {
-        const btn = document.getElementById('toggleSidebar');
-        const sidebar = document.getElementById('docsSidebar');
-        if (!btn) return;
-        btn.addEventListener('click', () => {
-          sidebar.classList.toggle('open');
-          if (sidebar.classList.contains('open')) {
-            sidebar.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        buildTOC();
-        setupSidebarSearch();
-        setupMobileToggle();
-
-        // 現在ページに該当するサイドバーリンクへ active
-        const path = location.pathname.split('/').pop() || 'index.html';
-        document.querySelectorAll('#docsNav a').forEach(a => {
-          if (a.getAttribute('href').endsWith(path)) a.classList.add('active');
-        });
-      });
-    </script>
+      <h2>クイックサンプル</h2>
+      <pre>
+curl -H "Authorization: Bearer &lt;YOUR_TOKEN&gt;" \
+https://api.example.com/v1/resources
+      </pre>
+    </main>
   </body>
 </html>
